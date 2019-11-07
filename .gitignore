@@ -142,3 +142,6 @@ app/ch11_migrations/final/.idea/dataSources/bb882f32-bdb3-45cb-adce-c46711dd125e
 .idea/vagrant.xml
 .idea/vcs.xml
 .idea/inspectionProfiles/profiles_settings.xml
+
+my_site/venv
+my_site/db
