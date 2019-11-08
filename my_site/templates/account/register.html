@@ -1,0 +1,20 @@
+{% extends "shared/_layout.html" %}
+{% block title %}Register{% endblock %}
+{% block content %}
+<form action="" method="post" class="account-form">
+    <h1>Register at PyPI</h1>
+    <input type="text" name="name" value="{{ name }}" placeholder="Your Name" class="form-control">
+    <input type="text" name="email" value="{{ email }}" placeholder="Your email address" class="form-control">
+    <input type="password" class="password form-control" name="password" value="{{ password }}" placeholder="Password">
+    <button type="submit" class="btn-danger">Register</button>
+    <div style="clear: both"></div>
+
+    {% if error %}
+        <div class="error-msg">{{ error }}</div>
+    {% endif %}
+</form>
+{% endblock %}
+
+{% block additional_css %}
+    <link rel="stylesheet" href="/static/css/account.css"/>
+{% endblock %}
