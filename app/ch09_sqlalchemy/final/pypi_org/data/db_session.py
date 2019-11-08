@@ -3,11 +3,11 @@ import sqlalchemy.orm as orm
 
 from pypi_org.data.modelbase import SqlAlchemyBase
 
-factory = None
+__factory = None
 
 
 def global_init(db_file: str):
-    global factory
+    global __factory
 
     if factory:
         return

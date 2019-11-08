@@ -1,6 +1,7 @@
 import flask
 from infrastructure.view_modifiers import response
 import services.package_service as package_service
+import services.user_service as user_service
 
 blueprint = flask.Blueprint('home', __name__, template_folder='templates')
 
@@ -8,8 +9,13 @@ blueprint = flask.Blueprint('home', __name__, template_folder='templates')
 @blueprint.route('/')
 @response(template_file='home/index.html')
 def index():
-    packages = package_service.get_latest_packages()
-    return {'packages': packages}
+    releases = package_service.get_latest_releases()
+    return {
+        'releases': releases,
+        'package_count': package_service.get_package_count(),
+        'release_count': package_service.get_release_count(),
+        'user_count': user_service.get_user_count(),
+    }
 
 
 @blueprint.route('/about')

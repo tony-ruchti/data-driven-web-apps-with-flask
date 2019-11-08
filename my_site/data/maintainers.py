@@ -1,5 +1,5 @@
 import sqlalchemy
-from data.modelbase import SqlAlchemyBase
+from my_site.data.modelbase import SqlAlchemyBase
 
 
 class Maintainer(SqlAlchemyBase):

@@ -1,15 +1,17 @@
 # noinspection PyUnresolvedReferences
-from data.package import Package
+from my_site.data.package import Package
 # noinspection PyUnresolvedReferences
-from data.downloads import Download
+from my_site.data.downloads import Download
 # noinspection PyUnresolvedReferences
-from data.languages import ProgrammingLanguage
+from my_site.data.languages import ProgrammingLanguage
 # noinspection PyUnresolvedReferences
-from data.licenses import License
+from my_site.data.licenses import License
 # noinspection PyUnresolvedReferences
-from data.maintainers import Maintainer
+from my_site.data.maintainers import Maintainer
 # noinspection PyUnresolvedReferences
-from data.releases import Release
+from my_site.data.releases import Release
 # noinspection PyUnresolvedReferences
-from data.users import User
+from my_site.data.users import User
+# noinspection PyUnresolvedReferences
+from my_site.data.audit import Audit
 
