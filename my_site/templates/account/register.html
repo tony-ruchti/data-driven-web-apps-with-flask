@@ -3,9 +3,10 @@
 {% block content %}
 <form action="" method="post" class="account-form">
     <h1>Register at PyPI</h1>
-    <input type="text" name="name" value="{{ name }}" placeholder="Your Name" class="form-control">
-    <input type="text" name="email" value="{{ email }}" placeholder="Your email address" class="form-control">
-    <input type="password" class="password form-control" name="password" value="{{ password }}" placeholder="Password">
+    <input type="text" name="name" value="{{ name }}" placeholder="Your Name" class="form-control" required>
+    <input type="email" name="email" value="{{ email }}" placeholder="Your email address" class="form-control" required>
+    <input type="password" class="password form-control" name="password" value="{{ password }}" placeholder="Password" required>
+    <input type="number" min="18" max="111" class="form-control" name="age" value="{{ age }}" placeholder="Age in Years" required>
     <button type="submit" class="btn-danger">Register</button>
     <div style="clear: both"></div>
 

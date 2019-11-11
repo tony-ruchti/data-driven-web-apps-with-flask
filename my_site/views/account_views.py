@@ -4,6 +4,8 @@ from infrastructure import request_dict
 from infrastructure.view_modifiers import response
 from services import user_service
 import infrastructure.cookie_auth as cookie_auth
+from viewmodels.account.index_viewmodel import IndexViewModel
+from viewmodels.account.register_viewmodel import RegisterViewModel
 
 blueprint = flask.Blueprint('account', __name__, template_folder='templates')
 
@@ -12,52 +14,35 @@ blueprint = flask.Blueprint('account', __name__, template_folder='templates')
 @blueprint.route('/account')
 @response(template_file='account/index.html')
 def index():
-    user_id = cookie_auth.get_user_id_via_auth_cookie(flask.request)
-    if user_id is None:
+    vm = IndexViewModel()
+    if not vm.user:
         return flask.redirect('/account/login')
 
-    user = user_service.find_user_by_id(user_id)
-    if not user:
-        return flask.redirect('/account/login')
-    return {
-        'user': user
-    }
+    return vm.to_dict()
 
 
 # ###### REGISTER ######
 @blueprint.route('/account/register', methods=['GET'])
 @response(template_file='account/register.html')
 def register_get():
-    return {
-        'user_id': cookie_auth.get_user_id_via_auth_cookie(flask.request),
-    }
+    vm = RegisterViewModel()
+    return vm.to_dict()
 
 
 @blueprint.route('/account/register', methods=['POST'])
 @response(template_file='account/register.html')
 def register_post():
-    r = flask.request
-    name = r.form.get('name')
-    email = r.form.get('email', '').lower().strip()
-    password = r.form.get('password', '').strip()
+    vm = RegisterViewModel()
 
-    if not name or not email or not password:
-        return {
-            'name': name,
-            'email': email,
-            'password': password,
-            'error': "Some require fields are missing",
-        }
+    vm.validate()
 
-    user = user_service.create_user(name, email, password)
+    if vm.error:
+        return vm.to_dict()
+
+    user = user_service.create_user(vm.name, vm.email, vm.password)
 
     if not user:
-        return {
-            'name': name,
-            'email': email,
-            'password': password,
-            'error': "A user with that email already exists",
-        }
+        return vm.to_dict()
 
     resp = flask.redirect('/account')
     cookie_auth.set_auth(resp, user.id)
@@ -74,6 +59,7 @@ def login_get():
 @blueprint.route('/account/login', methods=['POST'])
 @response(template_file='account/login.html')
 def login_post():
+    # TODO: create view model for login
     data = request_dict.create()
     r = flask.request
     email = data.email.lower().strip()
