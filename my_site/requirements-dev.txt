@@ -3,4 +3,5 @@
 pytest
 pytest-cov
 webtest
+pytest-clarity
 alembic
